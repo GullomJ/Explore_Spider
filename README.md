@@ -9,9 +9,9 @@
 
 # To do list 
 
-- [] 爬取Gakki老婆照片保存到本地
+- [ ] 爬取Gakki老婆照片保存到本地
 
 
 # License
-Copyright(c) 2017 [Atsukon Lee](https://github.com/Aisuko)  
+Copyright(c) 2017 [Aisuko](https://github.com/Aisuko)  
 Licensed under the MIT license
