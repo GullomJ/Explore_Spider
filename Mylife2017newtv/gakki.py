@@ -33,7 +33,7 @@ class gakkisp(object):
 
     def show(self, list, timelist):
         print
-        u"我老婆新剧的评论:"
+        u"我Gakki新剧的评论:"
         n = 0
         while (n < len(list) and n < len(timelist)):
             print
