@@ -24,7 +24,6 @@ class GetImage(object):
         '''
         if self.image_list:
             for x, imng_url in enumerate(self.image_list[:13]):
-
                 try:
                     page = urllib2.urlopen(imng_url)
                     print 'Get picture successed'
