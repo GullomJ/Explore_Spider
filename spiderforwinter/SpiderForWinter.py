@@ -47,11 +47,11 @@ class GetImage(object):
         except Exception as e:
             raise e.message
 
-    def get_excel_path(self):
+    def get_excel_path(self,excel_name):
         try:
-            local_path = sorted(sys.path[2], reverse=True)[1] + '\\spiderforwinter\\{excelname}'.format(
-                excelname=self.excel_name)
-            assert os._exists(local_path) == True
+            local_path = sys.path.__getitem__(2) + '\\spiderforwinter\\{excelname}'.format(
+                excelname=excel_name)
+            assert os.path.exists(local_path)
         except AssertionError as e:
             raise 'Excel is not exist' + e.message
         except Exception as e:
@@ -65,10 +65,11 @@ class GetImage(object):
             excel_column_name = raw_input('Please input Excel_column_name:')
 
             assert excel_name is not None, excel_column_name is not None
-
+            path=self.get_excel_path(excel_name=excel_name)
+            assert path
             return excel_name, excel_column_name
         except AssertionError as e:
-            raise 'Please enter the correct information. '
+            raise 'Please enter the correct information or check excel name. '
         except Exception as e:
             raise 'Error:' + e.message
 
@@ -76,3 +77,4 @@ class GetImage(object):
 if __name__ == '__main__':
     GetImage().get_pic()
     # 618开始
+    # OriginalURL
