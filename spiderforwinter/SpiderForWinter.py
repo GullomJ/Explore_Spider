@@ -3,7 +3,6 @@
 # __author__ = 'Aisuko'
 # date:2017-08-16
 
-import urllib
 import urllib2
 import os
 import sys
@@ -47,7 +46,7 @@ class GetImage(object):
         except Exception as e:
             raise e.message
 
-    def get_excel_path(self,excel_name):
+    def get_excel_path(self, excel_name):
         try:
             local_path = sys.path.__getitem__(2) + '\\spiderforwinter\\{excelname}'.format(
                 excelname=excel_name)
@@ -65,7 +64,7 @@ class GetImage(object):
             excel_column_name = raw_input('Please input Excel_column_name:')
 
             assert excel_name is not None, excel_column_name is not None
-            path=self.get_excel_path(excel_name=excel_name)
+            path = self.get_excel_path(excel_name=excel_name)
             assert path
             return excel_name, excel_column_name
         except AssertionError as e:
