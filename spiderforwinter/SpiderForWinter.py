@@ -19,23 +19,25 @@ class GetImage(object):
 
     def get_pic(self):
         '''
-        基于python2
+        Base on python2
         :return:
         '''
         if self.image_list:
-            for x, imng_url in enumerate(self.image_list):
+            for x, imng_url in enumerate(self.image_list[:13]):
 
                 try:
                     page = urllib2.urlopen(imng_url)
+                    print 'Get picture successed'
                 except Exception as e:
                     print e.message
                 else:
                     data = page.read()
+                    print 'Load picture successed, download picture right now, please wait...'
                     with open('img/{num}.jpeg'.format(num=x), 'wb') as f:
                         f.write(data)
                         print 'image-{id} download complete'.format(id=x)
         else:
-            print '图片地址列表没有获取到'
+            print 'Picture list is None'
 
     def get_picurl_from_source(self):
         try:
@@ -52,7 +54,7 @@ class GetImage(object):
                 excelname=self.excel_name)
             assert os._exists(local_path) == True
         except AssertionError as e:
-            raise 'Excel 不存在' + e.message
+            raise 'Excel is not exist' + e.message
         except Exception as e:
             raise e.message
         else:
@@ -60,17 +62,18 @@ class GetImage(object):
 
     def get_input_from_client(self):
         try:
-            excel_name = raw_input('请输入Excel:')
-            excel_column_name = raw_input('请输入Excel_column_name:')
+            excel_name = raw_input('Please input csv name:')
+            excel_column_name = raw_input('Please input Excel_column_name:')
 
             assert excel_name is not None, excel_column_name is not None
 
             return excel_name, excel_column_name
         except AssertionError as e:
-            raise '请按照规则输入'
+            raise 'Please enter the correct information. '
         except Exception as e:
-            raise '异常信息:' + e.message
+            raise 'Error:' + e.message
 
 
 if __name__ == '__main__':
     GetImage().get_pic()
+    # 618开始
