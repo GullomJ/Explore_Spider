@@ -17,10 +17,10 @@ class GetImage(object):
         self.image_list = self.get_picurl_from_source()
 
     def get_pic(self):
-        '''
-        Base on python2
+        """
+
         :return:
-        '''
+        """
         if self.image_list:
             for x, imng_url in enumerate(self.image_list[:13]):
                 try:
@@ -44,7 +44,7 @@ class GetImage(object):
                 list_pic = [row.get(self.excel_column_name) for row in reader]
                 return list_pic
         except Exception as e:
-            raise e.message
+            raise MyException(message=e.message).re_message()
 
     def get_excel_path(self, excel_name):
         try:
@@ -52,9 +52,9 @@ class GetImage(object):
                 excelname=excel_name)
             assert os.path.exists(local_path)
         except AssertionError as e:
-            raise 'Excel is not exist' + e.message
+            raise MyException(message=e.message).re_message()
         except Exception as e:
-            raise e.message
+            raise MyException(message=e.message).re_message()
         else:
             return local_path
 
@@ -68,9 +68,17 @@ class GetImage(object):
             assert path
             return excel_name, excel_column_name
         except AssertionError as e:
-            raise 'Please enter the correct information or check excel name. '
+            raise MyException(message='Please enter the correct information or check excel name. ').re_message()
         except Exception as e:
-            raise 'Error:' + e.message
+            raise MyException(message=e.message).re_message()
+
+
+class MyException(BaseException):
+    def __init__(self, message=None):
+        self.message = message if message else 'System Error'
+
+    def re_message(self):
+        return self.message
 
 
 if __name__ == '__main__':
