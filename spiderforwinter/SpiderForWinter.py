@@ -10,9 +10,14 @@ import csv
 
 
 class GetImage(object):
+    # doc：后面加的是检索号
     __doc__ = '1102f8a5-db49-4d90-935e-93291a251a80'
 
+    # __init__:初始化对象
     def __init__(self):
+        """
+
+        """
         self.excel_name, self.excel_column_name = self.get_input_from_client()
         self.image_list = self.get_picurl_from_source()
 
@@ -38,6 +43,10 @@ class GetImage(object):
             print 'Picture list is None'
 
     def get_picurl_from_source(self):
+        """
+
+        :return: 返回图片
+        """
         try:
             with open(self.excel_name) as imagecv:
                 reader = csv.DictReader(imagecv)
