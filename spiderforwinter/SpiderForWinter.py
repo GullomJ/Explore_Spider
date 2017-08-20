@@ -93,7 +93,7 @@ class MyException(BaseException):
 
 if __name__ == '__main__':
     GetImage().get_pic()
-    # 618开始
+    # 656开始
     # OriginalURL
 
     # MyException().re_message
