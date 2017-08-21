@@ -1,21 +1,25 @@
 #! usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 
-# __author__ = 'Gakki的男友 Aisuko'
+# __author__ = '小仙女的男友 Aisuko'
 import json
 import os
-
+import sys
+import urllib2
 from datetime import datetime
 import scrapy
 from urlparse import urlparse
 import random
-from gakki.items import GakkiItem as FileItem
+
+from gakki.items import GakkiItem
 
 
 class InsSpider(scrapy.Spider):
     name = 'ins'
-    allowed_domains = ['www.instagram.com/gakkiilove']
-    start_urls = ['http://www.instagram.com/gakkiilove/']
+    # allowed_domains = ['www.instagram.com/gakkiilove']
+    allowed_domains = ['www.instagram.com/naru_mt/']
+    # start_urls = ['http://www.instagram.com/gakkiilove/']
+    start_urls = ['https://www.instagram.com/naru_mt/']
 
     def __init__(self):
         '''
@@ -55,19 +59,39 @@ class InsSpider(scrapy.Spider):
                     else:
                         # TODO 需要发请求
                         pass
-                item = FileItem()
+                item = GakkiItem()
                 item["pic_url"] = [n["display_src"]]
                 item["filepath"] = thumb
                 item["filename"] = filename + ".jpg"
                 item["content_type"] = "image/jpeg"
                 item["proxy"] = True
                 print item
+                self.download(url=item["pic_url"].__getitem__(0))
         except Exception as e:
             print e.message
         else:
             pass
         finally:
             print 'Spider Complete'
+
+    def download(self,url):
+        assert url is not None
+        try:
+            page =urllib2.urlopen(url)
+            data = page.read()
+            print 'Load picture successed, download picture right now, please wait...'
+            # 把图片保存到本地
+            num = random.randint(1, 100)
+            path=sys.path.__getitem__(0)+'/gakki/img'
+            with open('{path}/{num}.jpeg'.format(path=path,num=num), 'wb') as f:
+                f.write(data)
+                print 'image-{id} download complete'.format(id=num)
+        except Exception as e:
+            print e.message
+        else:
+            pass
+
+
 
     def get_instagram_video(self, response):
         '''
@@ -79,7 +103,7 @@ class InsSpider(scrapy.Spider):
         '''
         try:
             data = json.loads(response.body)
-            item = FileItem()
+            item = GakkiItem()
             item["file_urls"] = [data["media"]["video_url"]]
             item["filepath"] = response.meta["storage"]
             item["filename"] = response.meta["filename"]
