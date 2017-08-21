@@ -29,6 +29,7 @@ class GetImage(object):
         :return:
         """
         if self.image_list:
+            # 循环获取图片的URL
             for x, imng_url in enumerate(self.image_list):
                 try:
                     page = urllib2.urlopen(imng_url)
@@ -36,8 +37,10 @@ class GetImage(object):
                 except Exception as e:
                     print e.message
                 else:
+                    # 读取带有图片的网页
                     data = page.read()
                     print 'Load picture successed, download picture right now, please wait...'
+                    # 把图片保存到本地
                     with open('img/{num}.jpeg'.format(num=x), 'wb') as f:
                         f.write(data)
                         print 'image-{id} download complete'.format(id=x)
@@ -50,8 +53,11 @@ class GetImage(object):
         :return: 返回图片
         """
         try:
+            # 打开csv文件
             with open(self.excel_name) as imagecv:
+                # 读取为对象
                 reader = csv.DictReader(imagecv)
+                # 循环获取图片URL为list集合
                 list_pic = [row.get(self.excel_column_name) for row in reader]
                 return list_pic
         except Exception as e:
@@ -59,8 +65,10 @@ class GetImage(object):
 
     def get_excel_path(self, excel_name):
         try:
+            # 检查csv文件的路径
             local_path = sys.path.__getitem__(2) + '\\spiderforwinter\\{excelname}'.format(
                 excelname=excel_name)
+            # 断言路径不能为None,否则程序终止
             assert os.path.exists(local_path)
         except AssertionError as e:
             raise MyException(message=e.message).re_message
@@ -75,6 +83,7 @@ class GetImage(object):
         :return:
         """
         try:
+            # 获取控制台输入的csv_name和csv文件的列表
             excel_name = raw_input('Please input csv name:')
             excel_column_name = raw_input('Please input Excel_column_name:')
             # 断言 变量都不为空
