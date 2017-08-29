@@ -3,10 +3,10 @@
 # __author__ = 'Aisuko'
 # date:2017-08-16
 
-import urllib2
+import csv
 import os
 import sys
-import csv
+import urllib2
 
 
 class GetImage(object):
@@ -58,16 +58,31 @@ class GetImage(object):
                 # 读取为对象
                 reader = csv.DictReader(imagecv)
                 # 循环获取图片URL为list集合
-                list_pic = [row.get(self.excel_column_name) for row in reader]
+                # list_pic = [row.get(self.excel_column_name) for row in reader]
+                list_pic = []
+                for i in self.yield_list_pic(reader):
+                    list_pic.append(i)
                 return list_pic
         except Exception as e:
             raise MyException(message=e.message).re_message
+
+    def yield_list_pic(self, reader):
+        """
+        修改为生成器获取文件中的图片URL 2017-08-29
+        :param reader:
+        :return:
+        """
+        if reader:
+            for row in reader:
+                yield row.get(self.excel_column_name)
+        else:
+            yield
 
     def get_excel_path(self, excel_name):
         try:
             # 检查csv文件的路径
             local_path = sys.path.__getitem__(2) + '\\spiderforwinter\\{excelname}'.format(
-                excelname=excel_name)
+                    excelname=excel_name)
             # 断言路径不能为None,否则程序终止
             assert os.path.exists(local_path)
         except AssertionError as e:
