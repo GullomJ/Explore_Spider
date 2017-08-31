@@ -1,4 +1,4 @@
-# !usr/bin/env python
+# !usr/bin/env python2.7
 # _*_ coding:utf-8 _*_
 # __author__ = 'Aisuko'
 # date:2017-08-16
