@@ -90,3 +90,5 @@ ENV/
 .idea/
 *.csv
 *.jpeg
+bisect_practice.py
+col.py
