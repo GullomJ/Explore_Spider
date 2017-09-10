@@ -92,3 +92,4 @@ ENV/
 *.jpeg
 bisect_practice.py
 col.py
+spiderforwinter/tq.py
